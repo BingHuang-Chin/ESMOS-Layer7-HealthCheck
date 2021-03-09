@@ -1,6 +1,7 @@
 const dotenv = require('dotenv')
 const fetch = require('node-fetch')
 const AbortController = require('abort-controller')
+const sleep = require('./util/sleepTimer')
 
 dotenv.config()
 
@@ -21,7 +22,7 @@ async function sendTelegramMessage(chatId, text) {
     }
 }
 
-async function getCatSystemHealth(endpoint) {
+async function detectChanges(endpoint) {
     let isHealthChecked = false
 
     const fetchController = new AbortController()
@@ -50,4 +51,11 @@ async function getCatSystemHealth(endpoint) {
     }
 }
 
-getCatSystemHealth(process.env.HTTP_ENDPOINT)
+async function startHealthCheck() {
+    while (true) {
+        detectChanges(process.env.HTTP_ENDPOINT)
+        await sleep(30000)
+    }
+}
+
+startHealthCheck()
