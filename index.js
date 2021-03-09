@@ -1,6 +1,7 @@
 const dotenv = require('dotenv')
 const fetch = require('node-fetch')
 const AbortController = require('abort-controller')
+const sleep = require('./util/sleepTimer')
 
 dotenv.config()
 
@@ -99,6 +100,14 @@ async function getPulseHealth(endpoint) {
     }
 }
 
-getOsTicketHealth(process.env.HTTPS_ENDPOINT)
-getCatSystemHealth(process.env.HTTP_ENDPOINT)
-getPulseHealth(process.env.HTTP_ENDPOINT)
+async function startHealthCheck() {
+    while (true) {
+        getOsTicketHealth(process.env.HTTPS_ENDPOINT)
+        getCatSystemHealth(process.env.HTTP_ENDPOINT)
+        getPulseHealth(process.env.HTTP_ENDPOINT)
+
+        await sleep(10000)
+    }
+}
+
+startHealthCheck()
