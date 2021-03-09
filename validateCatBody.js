@@ -37,11 +37,13 @@ async function getCatSystemHealth(endpoint) {
         const response = await responseStream.text()
         const escapedString = escape(response)
 
+        console.log(escapedString === DEAFULT_CAT_HTML)
         if (escapedString === DEAFULT_CAT_HTML) {
             isHealthChecked = true
             clearTimeout(timeoutHandler)
         } else {
             sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, 'There is a change in the CAT HTML contents.')
+            clearTimeout(timeoutHandler)
         }
     } catch (e) {
         sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, `Change detection for CAT has failed to run. Error trace: ${e.message}`)

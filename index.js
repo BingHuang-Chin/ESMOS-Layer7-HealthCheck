@@ -39,6 +39,7 @@ async function getCatSystemHealth(endpoint) {
             clearTimeout(timeoutHandler)
         } else {
             sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, 'Cat system possible down.')
+            clearTimeout(timeoutHandler)
         }
     } catch (e) {
         sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, `Cat system is down. Error trace: ${e.message}`)
@@ -64,6 +65,7 @@ async function getOsTicketHealth(endpoint) {
             clearTimeout(timeoutHandler)
         } else {
             sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, 'OsTicket system possible down.')
+            clearTimeout(timeoutHandler)
         }
     } catch (e) {
         sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, `OsTicket system is down. Error trace: ${e.message}`)
@@ -90,6 +92,7 @@ async function getPulseHealth(endpoint) {
             clearTimeout(timeoutHandler)
         } else {
             sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, 'Pulse system possible down.')
+            clearTimeout(timeoutHandler)
         }
     } catch (e) {
         sendTelegramMessage(TELEGRAM_CHAT_GROUP_ID, `Pulse system is down. Error trace: ${e.message}`)
